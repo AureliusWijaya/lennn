@@ -80,4 +80,14 @@ class ArticleController extends Controller
         return redirect()->route('home')->with('success', 'Article updated successfully');
     }
 
+    public function delete($id)
+    {
+        $article = Article::findOrFail($id);
+        if ($article->image && file_exists(public_path('images/' . $article->image))) {
+            unlink(public_path('images/' . $article->image));
+        }
+        $article->delete();
+        return redirect()->route('home')->with('success', 'Article deleted successfully');
+    }
+
 }

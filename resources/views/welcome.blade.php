@@ -26,19 +26,28 @@
     <h1> Localization ini: @lang('Whoops!')</h1>
 
     <!-- tinggal pake Auth::user()->"data yang mo diambil"  -->
-    @if (Auth::user())
+    <!-- @if (Auth::user())
         <h1>{{Auth::user()->email}}</h1>
         <h1>{{Auth::user()->password}}</h1>
         <h1>{{Auth::user()->role}}</h1>
-    @endif
+    @endif -->
 
     @foreach ($articles as $i)
-        <h1>
-            {{$i->title}}
-        </h1>
-        <a href="{{route('article.show', $i->id) }}">
-            <img src="{{asset('images/' . $i->image)}}">
-        </a>
+        <div>
+            <h1>
+                {{$i->title}}
+            </h1>
+            <a href="{{route('article.show', $i->id) }}">
+                <img src="{{asset('images/' . $i->image)}}">
+            </a>
+
+            <form action="{{route('article.delete', $i->id)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit">delete</button>
+
+            </form>
+        </div>
 
     @endforeach
 </body>
