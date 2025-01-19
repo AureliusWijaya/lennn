@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\category;
+use App\Models\comment;
 use App\Models\order;
 use App\Models\orderitem;
 use App\Models\product;
+use App\Models\vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -137,4 +139,49 @@ class ProductController extends Controller
 
         return redirect()->route('home')->with('success', 'Purchase successful!');
     }
+
+    public function addComment(Request $request, $productId)
+    {
+        $validated = $request->validate([
+            'content' => 'required|string|max:500',
+        ]);
+
+        comment::create([
+            'user_id' => Auth::id(),
+            'product_id' => $productId,
+            'content' => $validated['content'],
+        ]);
+
+        return redirect()->back()->with('success', 'Comment added successfully!');
+    }
+
+    public function addVote(Request $request, $productId)
+    {
+        $validated = $request->validate([
+            'vote' => 'required|integer|min:1|max:5',
+        ]);
+
+        // Update or create the vote
+        vote::updateOrCreate(
+            [
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+            ],
+            [
+                'vote' => $validated['vote'],
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Vote added successfully!');
+    }
+
+    public function showProductDetails($productId)
+    {
+        $product = product::with(['comments.user', 'votes'])->findOrFail($productId);
+
+        $averageVote = $product->votes->avg('vote');
+
+        return view('product-detail', compact('product', 'averageVote'));
+    }
+    
 }

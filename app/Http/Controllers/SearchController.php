@@ -25,7 +25,7 @@ class SearchController extends Controller
             ->when($dateTo, fn($q) => $q->whereDate('created_at', '<=', $dateTo))
             ->when($sortOrder, function ($q) use ($sortOrder) {
                 if ($sortOrder === 'asc' || $sortOrder === 'desc') {
-                    $q->orderBy('title', $sortOrder);
+                    $q->orderBy('name', $sortOrder);
                 }
             })
             ->get();

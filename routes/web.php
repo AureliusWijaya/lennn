@@ -46,3 +46,6 @@ Route::get('/detail/{id}', [ProductController::class, 'productDetail'])->name('p
 Route::post('/purchase/{productId}', [ProductController::class, 'purchase'])->name('purchase');
 
 Route::get('/order-history', [OrderController::class, 'index'])->name('order.history');
+
+Route::post('/product/{productId}/comment', [ProductController::class, 'addComment'])->name('comment.add');
+Route::post('/product/{productId}/vote', [ProductController::class, 'addVote'])->name('vote.add');
