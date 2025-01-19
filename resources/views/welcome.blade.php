@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
 </head>
+@extends('master')
+@section('content')
 
 <body>
 
@@ -19,18 +23,13 @@
         </div>
     @endif
 
+    <h1> Localization ini: @lang('Whoops!')</h1>
 
-    <a href="{{route('lang.switch', ['locale' => 'en'])}}">English</a>
-    <a href="{{route('lang.switch', ['locale' => 'id'])}}">Id</a>
-
-
-    <form action="{{route('logout')}}" method="POST">
-        @csrf
-        <button> Logout ini</button>
-    </form>
-    <h1>@lang('Whoops!')</h1>
+    <!-- tinggal pake Auth::user()->"data yang mo diambil"  -->
     @if (Auth::user())
         <h1>{{Auth::user()->email}}</h1>
+        <h1>{{Auth::user()->password}}</h1>
+        <h1>{{Auth::user()->role}}</h1>
     @endif
 
     @foreach ($articles as $i)
@@ -43,5 +42,7 @@
 
     @endforeach
 </body>
+
+@endsection
 
 </html>

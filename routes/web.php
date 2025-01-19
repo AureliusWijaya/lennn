@@ -28,7 +28,7 @@ Route::get(
     }
 )->name('lang.switch');
 
-Route::middleware(isAdmin::class)->group(function () {
+Route::middleware([isAdmin::class, LangMiddleware::class])->group(function () {
     Route::get('/admin', function () {
         return view('admin');
     })->name('admin');

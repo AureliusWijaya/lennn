@@ -37,10 +37,6 @@ class ArticleController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        if (!$article) {
-            return back()->with('error', 'Article creation failed. Please try again.');
-        }
-
         return redirect()->route('home')->with('success', 'Article uploaded successfully');
     }
 
@@ -70,7 +66,8 @@ class ArticleController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
 
-
+            // ini save di public/images
+            // kalo folder images blm kebuat auto kebuat
             if ($article->image && file_exists(public_path('images/' . $article->image))) {
                 unlink(public_path('images/' . $article->image));
             }

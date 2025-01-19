@@ -1,4 +1,4 @@
-<form action="{{route('article.update', $article->id)}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('article.update', $article->id)}}" method="POST" enctype="multipart/form-data"> 
     @csrf
     @method('PUT')
     <input type="text" id="title" name="title" placeholder="title" value="{{old('title', $article->title)}}">

@@ -29,7 +29,7 @@ class UserController extends Controller
             'role' => 'peasant',
         ]);
 
-        return redirect()->route('home')->with('success');
+        return redirect()->route('home')->with('success', 'asdasdasd');
     }
 
     public function indexLogin()
@@ -44,8 +44,7 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
 
-        if(Auth::attempt($validated))
-        {
+        if (Auth::attempt($validated)) {
             $request->session()->regenerate();
             return redirect()->route('home')->with('success', 'sukses masuk');
         }
@@ -53,7 +52,8 @@ class UserController extends Controller
         return back()->withErrors('error');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
