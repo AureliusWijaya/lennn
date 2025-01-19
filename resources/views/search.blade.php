@@ -10,8 +10,8 @@
         <ul>
             @foreach ($results as $result)
                 <li>
-                    <a href="{{ route('article.show', $result->id) }}">
-                        {{ $result->title ?? 'Untitled' }}
+                    <a href="{{ route('product.detail', $result->id) }}">
+                        {{ $result->name ?? 'Untitled' }}
                     </a>
                 </li>
             @endforeach

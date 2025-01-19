@@ -31,25 +31,22 @@
         <h1>{{Auth::user()->password}}</h1>
         <h1>{{Auth::user()->role}}</h1>
     @endif -->
-
-    @foreach ($articles as $i)
+    @foreach ($products as $i)
         <div>
-            <h1>
-                {{$i->title}}
-            </h1>
-            <a href="{{route('article.show', $i->id) }}">
-                <img src="{{asset('images/' . $i->image)}}">
-            </a>
+            <div class="container">
+                <a href="{{route('product.detail', $i->id) }}">
 
-            <form action="{{route('article.delete', $i->id)}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger" type="submit">delete</button>
-
-            </form>
+                    <h1>{{$i->name}}</h1>
+                    <h1>{{$i->price}}</h1>
+                    <h1>{{$i->description}}</h1>
+                    <h1>{{$i->category->name}}</h1>
+                    <img src="{{asset('images/' . $i->image)}}">
+                </a>
+            </div>
         </div>
 
     @endforeach
+
 </body>
 
 @endsection

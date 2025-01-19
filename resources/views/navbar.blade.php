@@ -107,11 +107,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
-                            <select class="form-select" id="category" name="category">
-                                <option value="">All Categories</option>
-                                <option value="technology">Technology</option>
-                                <option value="design">Design</option>
-                                <option value="business">Business</option>
+                            <select name="category">
+                                <option value="">-- All Categories --</option>
+                                @foreach ($categories as $cat)
+                                    <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
